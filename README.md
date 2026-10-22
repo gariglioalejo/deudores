@@ -25,11 +25,11 @@ informados al Banco Central de la República Argentina.
 
 La consulta se hace **directo desde el navegador**: el sitio no tiene backend ni guarda las
 búsquedas. Los montos están expresados en pesos argentinos y corresponden a la información
-remitida por las entidades al BCRA.
+remitida por las entidades al BCRA. La API responde `Access-Control-Allow-Origin: *`, así que
+no hace falta ningún proxy.
 
-Si el navegador no puede acceder a la API (por CORS o por una caída del servicio), el sitio
-muestra un mensaje de error con la opción de reintentar. En ese caso hace falta un proxy
-(`worker/` no incluido) o consultar la web oficial del BCRA.
+Si el navegador no puede acceder a la API (por una caída del servicio o por una red que la
+bloquee), el sitio muestra un mensaje de error con la opción de reintentar.
 
 ## Estructura
 
