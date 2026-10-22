@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Central de Deudores · Consulta de CUIT</title>
+  <meta name="description" content="Consultá en vivo las deudas y los cheques rechazados informados al BCRA para un CUIT, CUIL o CDI." />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="color-scheme" content="light" />
+  <meta name="theme-color" content="#14509e" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2314509e'/%3E%3Cpath d='M16 45h32M20 39V27m8 12V27m8 12V27m8 12V27M32 23l14-7H18l14 7Z' stroke='white' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip" href="#cuit">Ir a la consulta</a>
+
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 64 64" width="30" height="30">
+            <rect width="64" height="64" rx="14" fill="currentColor" />
+            <path d="M16 45h32M20 39V27m8 12V27m8 12V27m8 12V27M32 23l14-7H18l14 7Z"
+                  stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+          </svg>
+        </span>
+        <span class="brand-copy">
+          <strong>Central de Deudores</strong>
+          <span>Consulta por CUIT · BCRA</span>
+        </span>
+      </div>
+      <a class="source-link" href="https://www.bcra.gob.ar/apis-banco-central/" target="_blank" rel="noopener noreferrer">
+        API oficial
+        <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+          <path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <h1>Consultá la situación crediticia de un CUIT</h1>
+      <p class="sub">
+        Deudas con entidades financieras y cheques rechazados, según la información
+        que publica el Banco Central de la República Argentina.
+      </p>
+
+      <form id="searchForm" class="search" novalidate>
+        <div class="field">
+          <label class="sr-only" for="cuit">CUIT, CUIL o CDI</label>
+          <span class="field-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="18" height="18">
+              <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2" />
+              <path d="m16.5 16.5 4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </span>
+          <input
+            id="cuit"
+            name="cuit"
+            type="text"
+            inputmode="numeric"
+            autocomplete="off"
+            autocapitalize="off"
+            spellcheck="false"
+            maxlength="13"
+            placeholder="30-50001091-2"
+            aria-describedby="hint"
+          />
+        </div>
+        <button id="submitBtn" class="btn" type="submit">
+          <span class="btn-label">Consultar</span>
+          <span class="spinner" aria-hidden="true"></span>
+        </button>
+      </form>
+      <p id="hint" class="hint" role="status" aria-live="polite">
+        Ingresá 11 dígitos. Podés consultar por CUIT, CUIL o CDI.
+      </p>
+    </section>
+
+    <section id="result" class="result" aria-live="polite" hidden></section>
+
+    <section id="empty" class="empty">
+      <div class="empty-grid">
+        <article class="mini">
+          <h2>Deudas</h2>
+          <p>Situación de cada entidad, monto informado y días de atraso del último período.</p>
+        </article>
+        <article class="mini">
+          <h2>Cheques rechazados</h2>
+          <p>Cheques por causal, entidad, fecha y estado de la multa.</p>
+        </article>
+        <article class="mini">
+          <h2>Situación 1 a 6</h2>
+          <p>Clasificación crediticia que asigna la entidad financiera, de normal a irrecuperable.</p>
+        </article>
+      </div>
+
+      <details class="legend">
+        <summary>Qué significa cada situación</summary>
+        <dl>
+          <div><dt><span class="dot s1"></span>1 · Normal</dt><dd>Cumplimiento normal de las obligaciones.</dd></div>
+          <div><dt><span class="dot s2"></span>2 · Riesgo bajo</dt><dd>Atrasos ocasionales y debilidades potenciales.</dd></div>
+          <div><dt><span class="dot s3"></span>3 · Riesgo medio</dt><dd>Dificultades que requieren seguimiento.</dd></div>
+          <div><dt><span class="dot s4"></span>4 · Riesgo alto</dt><dd>Alto riesgo de insolvencia.</dd></div>
+          <div><dt><span class="dot s5"></span>5 · Irrecuperable</dt><dd>Deuda considerada de difícil o imposible recupero.</dd></div>
+          <div><dt><span class="dot s6"></span>6 · Disposición técnica</dt><dd>Irrecuperable por disposición técnica (concurso o quiebra).</dd></div>
+        </dl>
+      </details>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <p>
+        Datos oficiales:
+        <a href="https://www.bcra.gob.ar/apis-banco-central/" target="_blank" rel="noopener noreferrer">API Central de Deudores v1.0</a>
+        · <a href="https://www.bcra.gob.ar/" target="_blank" rel="noopener noreferrer">bcra.gob.ar</a>
+      </p>
+      <p class="fine">
+        Sitio no oficial. La consulta se hace directamente desde tu navegador a la API pública del BCRA;
+        este sitio no guarda ni envía tus búsquedas a ningún servidor propio. La información puede tener
+        demoras y no constituye asesoramiento financiero.
+      </p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
